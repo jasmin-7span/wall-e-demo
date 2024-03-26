@@ -1,28 +1,148 @@
-import { eachDayOfInterval, format } from "date-fns";
+// import { eachDayOfInterval, format } from "date-fns";
 import "./App.css";
+import { LeftArrowIcon } from "./components/icons/LeftArrowIcon";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { RightArrowIcon } from "./components/icons/RightArrowIcon";
 
 function App() {
-  const [Dates, setDates] = useState([]);
+  // const [Dates, setDates] = useState([]);
+  const [selectDay, setSelectDay] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  const eventData = {
-    tour: {
-      startDate: "11-3-24",
-      endDate: "20-3-24",
+  const dates = [
+    {
+      day: 1,
+      date: "11-3-2024",
     },
-    meals: [
-      { start: 6, end: 8, eventName: "High Tea" },
-      { start: 12, end: 14, eventName: "Lunch" },
-      { start: 18, end: 20, eventName: "Dinner" },
-    ],
-    events: [
-      { start: 2, end: 4, eventName: "Surfing" },
-      { start: 3, end: 6, eventName: "Karaoke" },
-      { start: 5, end: 8, eventName: "DJ Night" },
-      { start: 6, end: 12, eventName: "Hello" },
-    ],
-  };
+    {
+      day: 2,
+      date: "12-3-2024",
+    },
+    {
+      day: 3,
+      date: "13-3-2024",
+    },
+    {
+      day: 4,
+      date: "14-3-2024",
+    },
+    {
+      day: 5,
+      date: "15-3-2024",
+    },
+    {
+      day: 6,
+      date: "16-3-2024",
+    },
+    {
+      day: 7,
+      date: "17-3-2024",
+    },
+    {
+      day: 8,
+      date: "18-3-2024",
+    },
+    {
+      day: 9,
+      date: "19-3-2024",
+    },
+  ];
+
+  const eventData = [
+    {
+      // tour: {
+      //   startDate: "11-3-24",
+      //   endDate: "20-3-24",
+      // },
+      day: 1,
+      date: "11-mar-2024",
+      sailings: [
+        {
+          start: 4,
+          end: 5,
+          eventName: "Sailing through Bombay Shore",
+        },
+        {
+          start: 9,
+          end: 12,
+          eventName: "Diving in Hind Mahasagar",
+        },
+      ],
+      meals: [
+        { start: 6, end: 8, eventName: "High Tea" },
+        { start: 12, end: 14, eventName: "Lunch" },
+        { start: 18, end: 20, eventName: "Dinner" },
+      ],
+      events: [
+        { start: 2, end: 4, eventName: "Surfing" },
+        { start: 3, end: 6, eventName: "Karaoke" },
+        { start: 5, end: 8, eventName: "DJ Night" },
+        { start: 7, end: 12, eventName: "Hello" },
+      ],
+    },
+    {
+      // tour: {
+      //   startDate: "11-3-24",
+      //   endDate: "20-3-24",
+      // },
+      // dates: [
+      //   {
+      //     day: 1,
+      //     date: "11-3-2024",
+      //   },
+      //   {
+      //     day: 2,
+      //     date: "12-3-2024",
+      //   },
+      //   {
+      //     day: 3,
+      //     date: "13-3-2024",
+      //   },
+      //   {
+      //     day: 4,
+      //     date: "14-3-2024",
+      //   },
+      //   {
+      //     day: 5,
+      //     date: "15-3-2024",
+      //   },
+      //   {
+      //     day: 6,
+      //     date: "16-3-2024",
+      //   },
+      //   {
+      //     day: 7,
+      //     date: "17-3-2024",
+      //   },
+      // ],
+      day: 2,
+      date: "12-mar-2024",
+      sailings: [
+        {
+          start: 2,
+          end: 5,
+          eventName: "Sailing through Bombay Shore",
+        },
+        {
+          start: 9,
+          end: 12,
+          eventName: "Diving in Hind Mahasagar",
+        },
+      ],
+      meals: [
+        { start: 7, end: 8, eventName: "High Tea" },
+        { start: 15, end: 17, eventName: "Lunch" },
+        { start: 20, end: 22, eventName: "Dinner" },
+      ],
+      events: [
+        { start: 1, end: 3, eventName: "Surfing" },
+        { start: 2, end: 4, eventName: "Karaoke" },
+        { start: 5, end: 8, eventName: "DJ Night" },
+        { start: 6, end: 7, eventName: "Hello" },
+      ],
+    },
+  ];
 
   function findEvent(array, v) {
     for (let i = 0; i < array.length; i++) {
@@ -46,53 +166,51 @@ function App() {
     }, []);
   }
 
-  // const getMealsCell = () => {
-  //   return eventData.meals.map((item, index) => {
-  //     if (index === 0) {
-  //       return {
-  //         beforeCell: item.start - 1,
-  //         afterCell: item.end - item.start,
-  //         eventName: item.eventName,
-  //       };
-  //     } else {
-  //       return {
-  //         beforeCell: item.start - eventData.meals[index - 1].end,
-  //         afterCell: item.end - item.start,
-  //         eventName: item.eventName,
-  //       };
-  //     }
+  // const getDates = () => {
+  //   const dates = eachDayOfInterval({
+  //     start: new Date(2024, 3, 11),
+  //     end: new Date(2024, 3, 20),
   //   });
+  //   const formattedDates = dates.map((date) => format(date, "dd-MM-yyyy"));
+  //   setDates(formattedDates);
   // };
-
-  const getDates = () => {
-    const dates = eachDayOfInterval({
-      start: new Date(2024, 3, 11),
-      end: new Date(2024, 3, 20),
-    });
-    const formattedDates = dates.map((date) => format(date, "dd-MM-yyyy"));
-    setDates(formattedDates);
-  };
 
   const hours = Array.from({ length: 24 }, (_, index) => index);
 
-  useEffect(() => {
-    getDates();
-  }, []);
+  // useEffect(() => {
+  //   getDates();
+  // }, []);
 
   return (
     <div className="p-4">
-      <h1 className="font-bold">React Calendar</h1>
-      <div className="flex">
-        {Dates.map((date, index) => {
+      <h1 className="font-bold text-xl py-4">React Calendar</h1>
+      <div className="flex items-center">
+        <LeftArrowIcon className="w-8 h-8 cursor-pointer" />
+        {dates.map((date, index) => {
           return (
-            <div className="date-card" key={index}>
-              <h4>{date}</h4>
-            </div>
+            <button
+              key={index}
+              className={`date-card flex flex-col ${
+                date.day === selectDay ? "bg-sky-500" : "bg-purple-500"
+              }`}
+              onClick={() => {
+                setLoading(true);
+                setTimeout(() => {
+                  setSelectDay(date.day);
+                  setLoading(false);
+                }, 500);
+              }}
+            >
+              {date.day === 1 && <div>Check-In</div>}
+              {date.day === dates.length && <div>Check-Out</div>}
+              <h4>{date.date}</h4>
+            </button>
           );
         })}
+        <RightArrowIcon className="w-8 h-8 cursor-pointer" />
       </div>
 
-      <table style={{ marginTop: "10px" }}>
+      <table className="mt-10 mx-8">
         <thead>
           <tr>
             {hours.map((hour, index) => {
@@ -100,80 +218,134 @@ function App() {
             })}
           </tr>
         </thead>
-        <tbody>
-          {/* <tr>
-            {getMealsCell().map((item, index) => {
+
+        {loading ? (
+          <tbody className="relative">
+            <tr className="absolute top-4 flex justify-center w-full">
+              <div className="loader"></div>
+            </tr>
+          </tbody>
+        ) : (
+          <tbody>
+            {/* Sailings */}
+            <tr>
+              <td colSpan={24}>
+                <span className="font-bold text-xl">Sailings</span>
+              </td>
+            </tr>
+            {getSplitEvent(eventData[selectDay - 1].sailings).map(
+              (row, index) => {
+                return (
+                  <tr key={index}>
+                    {row.map((event, index) => {
+                      return (
+                        <React.Fragment key={index}>
+                          {index === 0 ? (
+                            <td colSpan={event.start - 1}></td>
+                          ) : null}
+                          <td
+                            colSpan={event.end - event.start}
+                            className="bg-sky-500"
+                          >
+                            {event.eventName}
+                          </td>
+                          {index !== row.length - 1 ? (
+                            Boolean(row[index + 1].start - event.end) && (
+                              <td colSpan={row[index + 1].start - event.end}>
+                                {/* {row[index + 1].start - event.end} */}
+                              </td>
+                            )
+                          ) : (
+                            <td colSpan={24 - event.end + 1}>
+                              {/* {24 - event.end + 1} */}
+                            </td>
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
+                  </tr>
+                );
+              }
+            )}
+
+            {/* Meals */}
+            <tr>
+              <td colSpan={24}>
+                <span className="font-bold text-xl">Meals</span>
+              </td>
+            </tr>
+            {getSplitEvent(eventData[selectDay - 1].meals).map((row, index) => {
+              console.log("row", row);
               return (
-                <React.Fragment key={index}>
-                  <td colSpan={item.beforeCell}>{item.beforeCell}</td>
-                  <td colSpan={item.afterCell}>{item.eventName}</td>
-                </React.Fragment>
+                <tr key={index}>
+                  {row.map((event, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        {index === 0 ? (
+                          <td colSpan={event.start - 1}></td>
+                        ) : null}
+                        <td
+                          colSpan={event.end - event.start}
+                          className="bg-sky-500"
+                        >
+                          {event.eventName}
+                        </td>
+                        {index !== row.length - 1 ? (
+                          Boolean(row[index + 1].start - event.end) && (
+                            <td colSpan={row[index + 1].start - event.end}>
+                              {/* {row[index + 1].start - event.end} */}
+                            </td>
+                          )
+                        ) : (
+                          <td colSpan={24 - event.end + 1}>
+                            {/* {24 - event.end + 1} */}
+                          </td>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </tr>
               );
             })}
-            <td
-              colSpan={24 - eventData.meals[eventData.meals.length - 1].end + 1}
-            >
-              {24 - eventData.meals[eventData.meals.length - 1].end + 1}
-            </td>
-          </tr> */}
 
-          {/* Meals */}
-          {getSplitEvent(eventData.meals).map((row, index) => {
-            console.log("row", row);
-            return (
-              <tr key={index}>
-                {row.map((event, index) => {
-                  return (
-                    <React.Fragment key={index}>
-                      {index === 0 ? (
-                        <td colSpan={event.start - 1}></td>
-                      ) : null}
-                      <td colSpan={event.end - event.start}>
-                        {event.eventName}
-                      </td>
-                      {index !== row.length - 1 ? (
-                        Boolean(row[index + 1].start - event.end) && (
-                          <td colSpan={row[index + 1].start - event.end}>
-                            {/* {row[index + 1].start - event.end} */}
-                          </td>
-                        )
-                      ) : (
-                        <td colSpan={24 - event.end + 1}>
-                          {/* {24 - event.end + 1} */}
-                        </td>
-                      )}
-                    </React.Fragment>
-                  );
-                })}
-              </tr>
-            );
-          })}
-
-          {/* Events */}
-          {getSplitEvent(eventData.events).map((row, index) => (
-            <tr key={index}>
-              {row.map((event, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    {index === 0 ? (
-                      <td colSpan={event.start - 1}></td>
-                    ) : null}
-                    <td colSpan={event.end - event.start}>{event.eventName}</td>
-                    {index !== row.length - 1 ? (
-                      Boolean(row[index + 1].start - event.end) && (
-                        <td colSpan={row[index + 1].start - event.end}>
-                          {/* {row[index + 1].start - event.end} */}
-                        </td>
-                      )
-                    ) : (
-                      <td colSpan={24 - event.end + 1}></td>
-                    )}
-                  </React.Fragment>
-                );
-              })}
+            {/* Events */}
+            <tr>
+              <td colSpan={24}>
+                <span className="font-bold text-xl">Events</span>
+              </td>
             </tr>
-          ))}
-        </tbody>
+            {getSplitEvent(eventData[selectDay - 1].events).map(
+              (row, index) => (
+                <tr key={index}>
+                  {row.map((event, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        {index === 0 ? (
+                          <td colSpan={event.start - 1}></td>
+                        ) : null}
+                        <td
+                          colSpan={event.end - event.start}
+                          className="bg-sky-500"
+                        >
+                          {event.eventName}
+                        </td>
+                        {index !== row.length - 1 ? (
+                          Boolean(row[index + 1].start - event.end) && (
+                            <td colSpan={row[index + 1].start - event.end}>
+                              {/* {row[index + 1].start - event.end} */}
+                            </td>
+                          )
+                        ) : (
+                          <td colSpan={24 - event.end + 1}></td>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </tr>
+              )
+            )}
+          </tbody>
+        )}
       </table>
     </div>
   );
