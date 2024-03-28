@@ -2,19 +2,13 @@ import React from "react";
 import "./App.css";
 import SingleDay from "./components/single-day";
 
-function App() {
+function App1() {
   const hours = Array.from({ length: 24 }, (_, index) => index);
   const eventData = [
     {
       day: 1,
       date: "11-mar-2024",
       sailings: [
-        // {
-        //   start: "2:30",
-        //   end: "10:45",
-        //   name: "Sailing through",
-        //   color: "gray",
-        // },
         {
           start: "4:30",
           end: "10:15",
@@ -39,12 +33,6 @@ function App() {
           name: "Diving in Hind Mahasagar",
           color: "pink",
         },
-        {
-          start: "23:00",
-          end: "24:00",
-          name: "Diving in Hind Mahasagar",
-          color: "pink",
-        },
       ],
       meals: [
         { start: "06:00", end: "08:15", name: "High Tea" },
@@ -58,6 +46,33 @@ function App() {
         { start: "07:00", end: "12:30", name: "Hello" },
       ],
     },
+    // {
+    //   day: 2,
+    //   date: "12-mar-2024",
+    //   sailings: [
+    //     {
+    //       start: 2,
+    //       end: 5,
+    //       eventName: "Sailing through Bombay Shore",
+    //     },
+    //     {
+    //       start: 9,
+    //       end: 12,
+    //       eventName: "Diving in Hind Mahasagar",
+    //     },
+    //   ],
+    //   meals: [
+    //     { start: '07:00', end: '08:00', eventName: "High Tea" },
+    //     { start: '15:30', end: '17:30', eventName: "Lunch" },
+    //     { start: '20:30', end: '22:30', eventName: "Dinner" },
+    //   ],
+    //   events: [
+    //     { start: '01:30', end: '02:30', eventName: "Surfing" },
+    //     { start: '02:30', end: '05:30', eventName: "Karaoke" },
+    //     { start: '06:30', end: '8:30', eventName: "DJ Night" },
+    //     { start: '07:00', end: '9:00', eventName: "Hello" },
+    //   ],
+    // },
   ];
   return (
     <div className="max-w-[1024px] mx-auto my-[100px] bg-gray-200 rounded-xl p-4">
@@ -76,7 +91,7 @@ function App() {
         </div>
         <div>
           {eventData.map((events, index) => {
-            return <SingleDay key={index} events={events} />;
+            return <SingleDay1 key={index} events={events} />;
           })}
         </div>
       </div>
@@ -84,4 +99,4 @@ function App() {
   );
 }
 
-export default App;
+export default App1;
