@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const SingleEvent = ({ event, index, events,setConflictEvent,conflictEvent,setIsCompleted }) => {
+const SingleEvent = ({ event, index, events }) => {
   const emptyEvent = () => {
     let width = 0;
     const eventStartTimeInHors =
@@ -9,8 +9,8 @@ const SingleEvent = ({ event, index, events,setConflictEvent,conflictEvent,setIs
       width = eventStartTimeInHors;
     } else {
       const minusTime =
-        +events.sailings[index - 1].end.split(":")[0] +
-        +events.sailings[index - 1].end.split(":")[1] / 60;
+        +events[index - 1].end.split(":")[0] +
+        +events[index - 1].end.split(":")[1] / 60;
       width = eventStartTimeInHors - minusTime;
     }
 
@@ -21,18 +21,7 @@ const SingleEvent = ({ event, index, events,setConflictEvent,conflictEvent,setIs
       +event.start.split(":")[0] + +event.start.split(":")[1] / 60;
     const eventEndTime =
       +event.end.split(":")[0] + +event.end.split(":")[1] / 60;
-    if (index !== 0) {
-      const prevEventEndTime =
-        +events.sailings[index - 1].end.split(":")[0] +
-        +events.sailings[index - 1].end.split(":")[1] / 60;
-      if (prevEventEndTime > eventStartTime) {
-          console.log("Hello Maulik");
-        //   setConflictEvent([event])
-      } 
-    }
-      if (index === events.sailings.length) {
-        //   setIsCompleted(false)
-      }
+
     return (eventEndTime - eventStartTime) * 70 + "px";
   };
   return (
@@ -50,7 +39,6 @@ const SingleEvent = ({ event, index, events,setConflictEvent,conflictEvent,setIs
       >
         {event.name}
       </div>
-      
     </>
   );
 };

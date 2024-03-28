@@ -1,8 +1,7 @@
 // import { eachDayOfInterval, format } from "date-fns";
+import React, { useState } from "react";
 import "./App.css";
 import { LeftArrowIcon } from "./components/icons/LeftArrowIcon";
-import React, { useState } from "react";
-import { useEffect } from "react";
 import { RightArrowIcon } from "./components/icons/RightArrowIcon";
 
 function App() {
@@ -188,44 +187,52 @@ function App() {
           <h1 className="font-bold text-xl ">Yoat Tour</h1>
           <div className="flex">
             <div>
-              <label htmlFor="" className="font-bold text-gray-500">Start Date:</label>
+              <label htmlFor="" className="font-bold text-gray-500">
+                Start Date:
+              </label>
               <span>11/03/2024</span>
             </div>
             <div className="ml-5">
-              <label className="font-bold text-gray-500" htmlFor="">End Date:</label>
+              <label className="font-bold text-gray-500" htmlFor="">
+                End Date:
+              </label>
               <span>19/03/2024</span>
             </div>
           </div>
         </div>
         <div>
           <label className="font-bold text-lg text-gray-500">Yoat Trip:</label>
-          <p><b>Bombay</b> to <b>Goa</b> to <b>Bombay</b></p>
+          <p>
+            <b>Bombay</b> to <b>Goa</b> to <b>Bombay</b>
+          </p>
         </div>
       </div>
       <div className="flex items-center">
         <LeftArrowIcon className="w-8 h-8 cursor-pointer" />
         <div className="flex rounded-lg overflow-hidden">
           {dates.map((date, index) => {
-          return (
-            <button
-              key={index}
-              className={`date-card flex flex-col ${
-                date.day === selectDay ? "bg-sky-500" : "bg-[#B0BEC5] border-l "
-              }`}
-              onClick={() => {
-                setLoading(true);
-                setTimeout(() => {
-                  setSelectDay(date.day);
-                  setLoading(false);
-                }, 500);
-              }}
-            >
-              {date.day === 1 && <div>Check-In</div>}
-              {date.day === dates.length && <div>Check-Out</div>}
-              <h4>{date.date}</h4>
-            </button>
-          );
-        })}
+            return (
+              <button
+                key={index}
+                className={`date-card flex flex-col ${
+                  date.day === selectDay
+                    ? "bg-sky-500"
+                    : "bg-[#B0BEC5] border-l "
+                }`}
+                onClick={() => {
+                  setLoading(true);
+                  setTimeout(() => {
+                    setSelectDay(date.day);
+                    setLoading(false);
+                  }, 500);
+                }}
+              >
+                {date.day === 1 && <div>Check-In</div>}
+                {date.day === dates.length && <div>Check-Out</div>}
+                <h4>{date.date}</h4>
+              </button>
+            );
+          })}
         </div>
         <RightArrowIcon className="w-8 h-8 cursor-pointer" />
       </div>
@@ -295,39 +302,41 @@ function App() {
                   <span className="font-bold text-xl">Meals</span>
                 </td>
               </tr>
-              {getSplitEvent(eventData[selectDay - 1].meals).map((row, index) => {
-                console.log("row", row);
-                return (
-                  <tr key={index}>
-                    {row.map((event, index) => {
-                      return (
-                        <React.Fragment key={index}>
-                          {index === 0 ? (
-                            <td colSpan={event.start - 1}></td>
-                          ) : null}
-                          <td
-                            colSpan={event.end - event.start}
-                            className="bg-sky-500"
-                          >
-                            {event.eventName}
-                          </td>
-                          {index !== row.length - 1 ? (
-                            Boolean(row[index + 1].start - event.end) && (
-                              <td colSpan={row[index + 1].start - event.end}>
-                                {/* {row[index + 1].start - event.end} */}
-                              </td>
-                            )
-                          ) : (
-                            <td colSpan={24 - event.end + 1}>
-                              {/* {24 - event.end + 1} */}
+              {getSplitEvent(eventData[selectDay - 1].meals).map(
+                (row, index) => {
+                  console.log("row", row);
+                  return (
+                    <tr key={index}>
+                      {row.map((event, index) => {
+                        return (
+                          <React.Fragment key={index}>
+                            {index === 0 ? (
+                              <td colSpan={event.start - 1}></td>
+                            ) : null}
+                            <td
+                              colSpan={event.end - event.start}
+                              className="bg-sky-500"
+                            >
+                              {event.eventName}
                             </td>
-                          )}
-                        </React.Fragment>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
+                            {index !== row.length - 1 ? (
+                              Boolean(row[index + 1].start - event.end) && (
+                                <td colSpan={row[index + 1].start - event.end}>
+                                  {/* {row[index + 1].start - event.end} */}
+                                </td>
+                              )
+                            ) : (
+                              <td colSpan={24 - event.end + 1}>
+                                {/* {24 - event.end + 1} */}
+                              </td>
+                            )}
+                          </React.Fragment>
+                        );
+                      })}
+                    </tr>
+                  );
+                }
+              )}
 
               {/* Events */}
               <tr>
